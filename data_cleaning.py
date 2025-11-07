@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.17.6"
+__generated_with = "0.17.7"
 app = marimo.App(width="medium")
 
 
@@ -39,7 +39,6 @@ def _():
             return out.strip()
         else:
             return r.json().get("response", "").strip()
-
     return
 
 
@@ -121,9 +120,13 @@ def _(df):
 
 @app.cell
 def _(df):
+    df.columns = df.columns.str.strip()
+    return
+
+
+@app.cell
+def _(df):
     df.loc[df.duplicated(subset=['name', 'artist'], keep=False)]
-
-
     return
 
 
@@ -147,18 +150,11 @@ def _(df):
 
 @app.cell
 def _(df):
-    df.columns = df.columns.str.strip()
-    return
-
-
-@app.cell
-def _(df):
     df.loc[ 
         (df['danceability'] ==  0) &
         (df['speechiness'] ==  0) &
         (df['tempo'] ==  0)
     ]
-
     return
 
 
@@ -175,7 +171,6 @@ def _(df):
     df.loc[ 
         (df['tempo'] ==  0)
     ]
-
     return
 
 
@@ -195,9 +190,8 @@ def _(df):
 def _(df):
     import random
     for i in df.index:
-        if df.loc[i, 'speechiness'] > 0.43:
+        if df.loc[i, 'speechiness'] > 0.66:
             df.loc[i, 'speechiness'] = round(random.uniform(0.35, 0.42),2)
-    
     return
 
 
@@ -222,7 +216,6 @@ def _(df):
 @app.cell
 def _(df):
     df.reset_index(drop=True, inplace=True)
-
     return
 
 
