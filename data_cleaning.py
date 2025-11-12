@@ -203,7 +203,7 @@ def _(df):
 
 @app.cell
 def _(df):
-    df.drop(['type', 'id', 'html'], axis=1, inplace=True)
+    df.drop(['type', 'id'], axis=1, inplace=True)
     return
 
 
